@@ -1,12 +1,13 @@
 import { Outlet } from 'react-router-dom'
-import './App.css'
+import Navbar from './shared/navbar/Navbar'
+import Footer from './shared/footer/Footer'
 
 function App() {
   return (
     <>
-      <div>Navbar</div>
+      <Navbar />
       <Outlet />
-      <div>Footer</div>
+      <Footer />
     </>
   )
 }
