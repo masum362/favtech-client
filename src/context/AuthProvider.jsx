@@ -1,19 +1,15 @@
 import { createContext, useEffect, useState } from "react";
-import { GithubAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import {GoogleAuthProvider,  createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.init";
-import { GoogleAuthProvider } from "firebase/auth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 
 export const AuthContext = createContext(null)
 
 const AuthProvider = ({ children }) => {
   const gogleProvider = new GoogleAuthProvider();
-  const githubProvider = new GithubAuthProvider();
   const [user, setUser] = useState(null)
   const [themeMode, setThemeMode] = useState(localStorage.getItem("theme") || "light")
   const [loading, setLoading] = useState(true);
-  const axios = useAxiosSecure();
 
 
   const darkMode = () => {
@@ -37,9 +33,7 @@ const AuthProvider = ({ children }) => {
   const loginWithGogle = () => {
     return signInWithPopup(auth, gogleProvider)
   }
-  const loginWithGithub = () => {
-    return signInWithPopup(auth, githubProvider)
-  }
+
 
   const updateUser = (user, displayName, photoURL) => {
     setLoading(true)
@@ -71,7 +65,7 @@ console.log("user not found")
 
   console.log(user)
 
-  const values = { user, RegisterUser, LoginUser, LogOutUser, loading, loginWithGogle, loginWithGithub, updateUser, setLoading, themeMode, darkMode, lightMode }
+  const values = { user, RegisterUser, LoginUser, LogOutUser, loading, loginWithGogle, updateUser, setLoading, themeMode, darkMode, lightMode }
 
 
   return (

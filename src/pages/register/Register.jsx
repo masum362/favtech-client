@@ -1,16 +1,20 @@
-import React, { useState } from 'react'
+import React, {  useState } from 'react'
 import CustomBtn from '../../components/customBtn/CustomBtn'
 import { Link } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
-
+import useAuth from '../../hooks/useAuth'
 const Register = () => {
     const [isOpen, setIsOpen] = useState(false);
-
+    const { RegisterUser, updateUser } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm()
 
-    const handleOnSubmit = data => {
-        console.log(data);
+    const handleOnSubmit = ({ email, password, photoURL, name }) => {
+        RegisterUser(email, password).then(result => {
+            updateUser(result.user, name, photoURL,).then(async (res) => {
+                console.log('user updated')
+            }).catch(err => console.log(err.message));
+        })
     }
 
     return (
