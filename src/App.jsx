@@ -7,9 +7,9 @@ function App() {
     <>
       <div className='mx-2 md:mx-4 lg:mx-8 space-y-2'>
       <Navbar />
+      </div>
       <Outlet />
       <Footer />
-      </div>
     </>
   )
 }
