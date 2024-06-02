@@ -33,7 +33,7 @@ const Carousel = () => {
         }
     ]
     return (
-        <div className="w-full border border-themePrimary relative">
+        <div className="w-full">
             <Swiper
                 pagination={{
                     clickable: true,
