@@ -50,6 +50,45 @@ const Login = () => {
         })
 
     }
+
+
+
+    const handleGogleLogin = () => {
+        loginWithGogle().then(res => {
+            console.log("user logged in successfully")
+            toast.success('Successfully looged in user', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
+            reset();
+            setTimeout(() => {
+                navigate(location.state ? location.state : "/");
+            }, 2000);
+        }).catch(err => {
+            toast.error(err.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+                transition: Bounce,
+            })
+        })
+    }
+
+
+
+
     return (
         <div className='flex items-center justify-center w-full min-h-screen'>
             <ToastContainer />
@@ -84,7 +123,7 @@ const Login = () => {
                 </form>
                 <p className='text-lg'>Don't have an acoount?<Link to={"/register"} className='text-themePrimary font-semibold'>Register</Link></p>
 
-                <button className='w-full'>
+                <button className='w-full' onClick={handleGogleLogin}>
                     <div className='w-full h-12 flex items-center justify-center  border-2 border-blue-500 rounded-full '>
                         <img src={gogleLogo} alt="gogleLogo" className='w-10 h-10 m-2' />
 
