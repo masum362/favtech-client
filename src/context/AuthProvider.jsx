@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import {GoogleAuthProvider,  createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.init";
 import { useNavigate } from "react-router-dom";
 
@@ -51,11 +51,12 @@ const AuthProvider = ({ children }) => {
 
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
-      setUser(currentUser);
-      setLoading(false);
+        setUser(currentUser);
+        setLoading(false);
       } else {
         setLoading(false)
-console.log("user not found")
+        console.log("user not found")
+        setUser(null)
       }
     })
     return () => {

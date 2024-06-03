@@ -1,24 +1,43 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import CustomBtn from '../../components/customBtn/CustomBtn'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth'
+import { ToastContainer, toast, Bounce } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const Register = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { RegisterUser, updateUser } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const navigate = useNavigate();
 
     const handleOnSubmit = ({ email, password, photoURL, name }) => {
         RegisterUser(email, password).then(result => {
             updateUser(result.user, name, photoURL,).then(async (res) => {
                 console.log('user updated')
+                toast.success('Successfully Registered user', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+                setTimeout(() => {
+                    navigate("/login");
+                }, 2000);
             }).catch(err => console.log(err.message));
         })
     }
 
     return (
         <div className='flex items-center justify-center w-full min-h-screen'>
+            <ToastContainer />
             <div className=' border border-gray-500 shadow-md shadow-gray-500 space-y-8 rounded-lg lg:w-1/3 xl:w-1/4 md:w-1/2 p-8'>
                 <h1 className='text-5xl font-bold text-center'>Register</h1>
                 <form onSubmit={handleSubmit(handleOnSubmit)} className='flex flex-col gap-4 w-full'>
@@ -69,7 +88,7 @@ const Register = () => {
                         })} />
                     </div>
                     {errors.photoURL && <span className='text-red-500'>{errors.photoURL?.message}</span>}
-                    <CustomBtn text={"Login"} style={"text-lg"} btnType={"submit"} />
+                    <CustomBtn text={"Register"} style={"text-lg"} btnType={"submit"} />
                 </form>
                 <p className='text-lg'>already have an acoount?<Link to={"/login"} className='text-themePrimary font-semibold'>Login</Link></p>
 

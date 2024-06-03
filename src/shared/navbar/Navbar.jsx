@@ -1,14 +1,18 @@
 import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import CustomBtn from '../../components/customBtn/CustomBtn'
+import useAuth from '../../hooks/useAuth'
 
 const Navbar = () => {
-    const user = {
-        displayName: "md. masum ahmed",
-        email: "masumahmed@gmail.com",
-        photoURL: "https://i.ibb.co/dpGrBT4/avater-1.png"
+    const { user, LogOutUser } = useAuth();
+
+    const handleLogOut = () => {
+        LogOutUser().then(res => {
+            console.log('user logged out');
+        })
+
     }
-  
+
     return (
         <div>
             <div className="navbar bg-base-100 w-full fixed top-0 left-0 border-b border-gray-300 py-4 px-8 z-[999]">
@@ -34,14 +38,14 @@ const Navbar = () => {
                                     <img alt="User profile picture" src={user?.photoURL} />
                                 </div>
                             </div>
-                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  bg-base-100 rounded-box w-52  ">
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  bg-base-100 rounded-box w-52  text-lg">
                                 <h1 className='text-2xl font-bold text-center m-4'>{user?.displayName}</h1>
                                 <li>
                                     <Link to={"/dashboard"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary">
                                         Dashboard
                                     </Link>
                                 </li>
-                                <li><button className='hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary'>Logout</button></li>
+                                <li><button onClick={handleLogOut} className='hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary'>Logout</button></li>
                             </ul>
                         </div> : <>
 
