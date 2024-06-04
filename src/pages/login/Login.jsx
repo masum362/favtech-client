@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form'
 import useAuth from '../../hooks/useAuth';
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuthPublic from '../../hooks/useAuthPublic';
 
 const Login = () => {
     const [isOpen, setIsOpen] = useState(false)
@@ -14,7 +15,7 @@ const Login = () => {
     const { register, handleSubmit, reset, formState: { errors } } = useForm()
     const navigate = useNavigate();
     const location = useLocation();
-
+    const authPublic = useAuthPublic();
 
 
     const handleFormLogin = ({ email, password }) => {
@@ -54,35 +55,21 @@ const Login = () => {
 
 
     const handleGogleLogin = () => {
-        loginWithGogle().then(res => {
-            console.log("user logged in successfully")
-            toast.success('Successfully looged in user', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
-            reset();
-            setTimeout(() => {
-                navigate(location.state ? location.state : "/");
-            }, 2000);
-        }).catch(err => {
-            toast.error(err.message, {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-                transition: Bounce,
-            })
+        loginWithGogle().then(async (res) => {
+                toast.success('Successfully Logged in user', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                    transition: Bounce,
+                })
+                setTimeout(() => {
+                    navigate(location.state ? location.state : "/");
+                }, 2000);
         })
     }
 

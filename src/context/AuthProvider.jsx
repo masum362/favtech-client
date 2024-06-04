@@ -2,6 +2,7 @@ import { createContext, useEffect, useState } from "react";
 import { GoogleAuthProvider, createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import auth from "../firebase/firebase.init";
 import { useNavigate } from "react-router-dom";
+import useAuthPublic from "../hooks/useAuthPublic";
 
 export const AuthContext = createContext(null)
 
@@ -10,6 +11,7 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
   const [themeMode, setThemeMode] = useState(localStorage.getItem("theme") || "light")
   const [loading, setLoading] = useState(true);
+  const authPublic = useAuthPublic();
 
 
   const darkMode = () => {
@@ -51,10 +53,26 @@ const AuthProvider = ({ children }) => {
 
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
       if (currentUser) {
+        const userInfo = { userId: currentUser.uid };
+        const user = {
+          displayName: currentUser.displayName,
+          email: currentUser.email,
+          photoURL: currentUser.photoURL,
+          uid: currentUser.uid
+        }
+        const response = await authPublic.post("/register", user);
+        authPublic.post('/login', userInfo)
+          .then(res => {
+            if (res.data.token) {
+              localStorage.setItem('access-token', res.data.token);
+
+            }
+          })
         setUser(currentUser);
         setLoading(false);
       } else {
         setLoading(false)
+        localStorage.removeItem('access-token');
         console.log("user not found")
         setUser(null)
       }

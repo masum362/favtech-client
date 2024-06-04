@@ -6,16 +6,24 @@ import { useForm } from 'react-hook-form';
 import useAuth from '../../hooks/useAuth'
 import { ToastContainer, toast, Bounce } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import useAuthPublic from '../../hooks/useAuthPublic';
 
 const Register = () => {
     const [isOpen, setIsOpen] = useState(false);
     const { RegisterUser, updateUser } = useAuth();
     const { register, handleSubmit, formState: { errors } } = useForm()
     const navigate = useNavigate();
+    const authPublic = useAuthPublic();
 
     const handleOnSubmit = ({ email, password, photoURL, name }) => {
         RegisterUser(email, password).then(result => {
             updateUser(result.user, name, photoURL,).then(async (res) => {
+                const user = {
+                    displayName: name,
+                    email,
+                    photoURL,
+                    uid: result.user.uid
+                }                    
                 console.log('user updated')
                 toast.success('Successfully Registered user', {
                     position: "top-right",
