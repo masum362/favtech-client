@@ -60,7 +60,7 @@ const AuthProvider = ({ children }) => {
           photoURL: currentUser.photoURL,
           uid: currentUser.uid
         }
-        const response = await authPublic.post("/register", user);
+         await authPublic.post("/register", user);
         authPublic.post('/login', userInfo)
           .then(res => {
             if (res.data.token) {
@@ -83,7 +83,7 @@ const AuthProvider = ({ children }) => {
 
   console.log(user)
 
-  const values = { user, RegisterUser, LoginUser, LogOutUser, loading, loginWithGogle, updateUser, setLoading, themeMode, darkMode, lightMode }
+  const values = { user,setUser, RegisterUser, LoginUser, LogOutUser, loading, loginWithGogle, updateUser, setLoading, themeMode, darkMode, lightMode }
 
 
   return (
