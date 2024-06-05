@@ -5,7 +5,7 @@ import useAuth from '../../hooks/useAuth'
 
 const Navbar = () => {
     const { user, LogOutUser } = useAuth();
-    console.log(user?.photoURL)
+    console.log(user)
 
     const handleLogOut = () => {
         LogOutUser().then(res => {
@@ -49,14 +49,26 @@ const Navbar = () => {
                                     <img alt="User profile picture" src={user?.photoURL} />
                                 </div>
                             </div>
-                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  bg-base-100 rounded-box w-52  text-lg">
-                                <h1 className='text-2xl font-bold text-center m-4'>{user?.displayName}</h1>
+                            <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow  bg-base-100 rounded-box w-52  text-lg ">
+                                <h1 className='text-2xl font-bold text-center m-4 text-themePrimary'>{user?.displayName}</h1>
                                 <li>
-                                    <Link to={"/dashboard"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary">
-                                        Dashboard
-                                    </Link>
+                                    {
+                                        user?.role === "user" && <Link to={"/user/my-profile"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary text-black">
+                                            Dashboard
+                                        </Link>
+                                    }
+                                    {
+                                        user?.role === "admin" && <Link to={"/admin/statistic"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary text-black">
+                                            Dashboard
+                                        </Link>
+                                    }
+                                    {
+                                        user?.role === "moderator" && <Link to={"/moderator/product-reviews"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary text-black">
+                                            Dashboard
+                                        </Link>
+                                    }
                                 </li>
-                                <li><button onClick={handleLogOut} className='hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary'>Logout</button></li>
+                                <li><button onClick={handleLogOut} className='hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary text-black'>Logout</button></li>
                             </ul>
                         </div> : <>
 
