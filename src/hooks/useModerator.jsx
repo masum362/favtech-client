@@ -7,12 +7,12 @@ const useModerator = () => {
     const authSecure = useAuthSecure();
     const { data: isModerator, isPending: isModeratorLoading } = useQuery({
         queryKey: [user?.uid, 'isModerator'],
-        enabled: !loading && !user?.email,
+        enabled: !loading && !!user?.uid,
         queryFn: async () => {
             console.log('asking or checking is Moderator', user)
-            const res = await authSecure.get(`/users/moderator/${user.email}`);
+            const res = await authSecure.get(`/users/moderator/${user?.uid}`);
             // console.log(res.data);
-            return res.data?.admin;
+            return res.data?.moderator;
         }
     })
     return [isModerator, isModeratorLoading]

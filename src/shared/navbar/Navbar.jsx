@@ -58,7 +58,7 @@ const Navbar = () => {
                                         </Link>
                                     }
                                     {
-                                        user?.role === "admin" && <Link to={"/admin/statistic"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary text-black">
+                                        user?.role === "admin" && <Link to={"/admin/statistics"} className="justify-between hover:text-themePrimary capitalize active:text-themeSecondary hover:bg-themeSecondary active:bg-themePrimary text-black">
                                             Dashboard
                                         </Link>
                                     }

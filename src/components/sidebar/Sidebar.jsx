@@ -1,15 +1,12 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaHome, FaLock, FaMoneyBill, FaUser } from "react-icons/fa";
-import { MdMessage } from "react-icons/md";
-import { BiAnalyse, BiSearch } from "react-icons/bi";
-import { BiCog } from "react-icons/bi";
-import { AiFillHeart, AiFillProfile, AiTwotoneFileExclamation } from "react-icons/ai";
-import { BsCartCheck } from "react-icons/bs";
+import { FaBars, FaList, FaUser ,FaUsers } from "react-icons/fa";
+import { IoAddCircle ,IoGridSharp } from "react-icons/io5";
+import {  MdReviews,MdReport} from "react-icons/md";
+import { BiSolidCoupon} from "react-icons/bi";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
 import useAuth from "../../hooks/useAuth";
-import MyProfile from "../../pages/myProfile/MyProfile";
 
 
 
@@ -23,17 +20,17 @@ const SideBar = ({ children }) => {
             {
                 path: "/user/my-profile",
                 name: "My Profile",
-                icon: <AiFillProfile />,
+                icon: <FaUser />,
             },
             {
                 path: "/user/add-product",
                 name: "Add Product",
-                icon: <AiFillProfile />,
+                icon: <IoAddCircle />,
             },
             {
                 path: "/user/my-products",
                 name: "My Product",
-                icon: <AiFillProfile />,
+                icon: <FaList />,
             },
         ]
     }
@@ -42,12 +39,12 @@ const SideBar = ({ children }) => {
             {
                 path: "/moderator/product-reviews",
                 name: "product Reviews Queue",
-                icon: <AiFillProfile />,
+                icon: <MdReviews />,
             },
             {
                 path: "/moderator/reported-contents",
                 name: "Reported Contents",
-                icon: <AiFillProfile />,
+                icon: <MdReport />,
             },
         ]
     }
@@ -56,17 +53,17 @@ const SideBar = ({ children }) => {
             {
                 path: "/admin/statistics",
                 name: "Statistics",
-                icon: <AiFillProfile />,
+                icon: <IoGridSharp  />,
             },
             {
                 path: "/admin/manage-users",
                 name: "Manage Users",
-                icon: <AiFillProfile />,
+                icon: <FaUsers />,
             },
             {
                 path: "/admin/manage-coupons",
                 name: "Manage Coupons",
-                icon: <AiFillProfile />,
+                icon: <BiSolidCoupon />,
             },
         ]
     }

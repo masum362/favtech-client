@@ -65,11 +65,11 @@ export const router = createBrowserRouter([
         children:[
         {
             path:"/moderator/product-reviews",
-            element:<ProductReviews></ProductReviews>
+            element:<SideBar><ProductReviews /></SideBar>
         },
         {
-            path:"/moderator/reported-products",
-            element:<ReportedProducts></ReportedProducts>
+            path:"/moderator/reported-contents",
+            element:<SideBar><ReportedProducts /></SideBar>
         },
        ]
     },
@@ -79,15 +79,15 @@ export const router = createBrowserRouter([
         children:[
         {
             path:"/admin/statistics",
-            element:<Statistics></Statistics>
+            element:<SideBar><Statistics></Statistics></SideBar>
         },
         {
             path:"/admin/manage-users",
-            element:<Users></Users>
+            element:<SideBar><Users></Users></SideBar>
         },
         {
             path:"/admin/manage-coupons",
-            element:<Coupons></Coupons>
+            element:<SideBar><Coupons></Coupons></SideBar>
         },
        ]
     },

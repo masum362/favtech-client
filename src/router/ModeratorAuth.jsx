@@ -1,4 +1,4 @@
-import { Navigate, useLocation } from "react-router-dom";
+import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useModerator from "../hooks/useModerator";
 
@@ -13,7 +13,7 @@ const ModeratorAuth = () => {
     }
 
     if (user && isModerator) {
-        return children;
+        return <Outlet />;
     }
 
     return <Navigate to="/" state={{ from: location }} replace></Navigate>
