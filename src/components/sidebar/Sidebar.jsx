@@ -134,9 +134,9 @@ const SideBar = ({ children }) => {
                                     initial="hidden"
                                     animate="show"
                                     exit="hidden"
-                                    className="logo"
+                                    className="logo hidden sm:block"
                                 >
-                                    ProductHunt Lite
+                                    ProductHunt
                                 </motion.h1>
                             )}
                         </AnimatePresence>
@@ -186,7 +186,7 @@ const SideBar = ({ children }) => {
                     </section>
                 </motion.div>
 
-                <main>{children}</main>
+                <main className="w-full">{children}</main>
             </div>
         </>
     );
