@@ -113,20 +113,20 @@ const SideBar = ({ children }) => {
 
     return (
         <>
-            <div className="main-container">
+            <div className="main-container ">
                 <motion.div
                     animate={{
-                        width: isOpen ? "200px" : "45px",
-
+                        width: isOpen ? "auto" : "45px",
                         transition: {
                             duration: 0.5,
                             type: "spring",
                             damping: 10,
                         },
                     }}
-                    className={`sidebar `}
+                    className={`sidebar overflow-hidden  
+                    `}
                 >
-                    <div className="top_section">
+                    <div className="top_section gap-4 ">
                         <AnimatePresence>
                             {isOpen && (
                                 <motion.h1
@@ -134,7 +134,7 @@ const SideBar = ({ children }) => {
                                     initial="hidden"
                                     animate="show"
                                     exit="hidden"
-                                    className="logo hidden sm:block"
+                                    className="logo hidden md:block "
                                 >
                                     ProductHunt
                                 </motion.h1>
@@ -174,7 +174,7 @@ const SideBar = ({ children }) => {
                                                 initial="hidden"
                                                 animate="show"
                                                 exit="hidden"
-                                                className="link_text"
+                                                className="link_text hidden md:block"
                                             >
                                                 {route.name}
                                             </motion.div>

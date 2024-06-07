@@ -33,7 +33,8 @@ body{
   .sidebar {
     background: rgb(0, 7, 61);
     color: white;
-    height: 100vh;
+    min-height: 100vh;
+    height: auto;
     overflow-y: auto;
   }
   
@@ -44,7 +45,7 @@ body{
     padding: 15px 10px;
   }
   .logo {
-    font-size: 18px;
+    font-size: 15px;
     line-height: 0;
   }
   .bars {
@@ -119,3 +120,5 @@ body{
     padding-left: 20px;
     border-bottom: #fff 0.5px solid;
   }
+
+  

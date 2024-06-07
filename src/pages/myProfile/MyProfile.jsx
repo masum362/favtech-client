@@ -97,7 +97,7 @@ const MyProfile = () => {
           <h1 className='text-5xl font-bold'>{user?.displayName}</h1>
           <p className='text-lg fontsemibold'>{user?.email}</p>
           {
-            user?.isSubscribed ? <p>Status:Verified</p> : <>
+            user?.isSubscribed ? <p>Status: <span className='text-themePrimary'>Verified</span></p> : <>
               {
                 !isWantedSubscribe && <span onClick={() => setIsWantedSubscribe(IoTrendingUp)}><CustomBtn text={"Subscribe"} ></CustomBtn></span>
               }
