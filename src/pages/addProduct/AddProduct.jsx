@@ -3,6 +3,9 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import CustomBtn from '../../components/customBtn/CustomBtn';
 import { TiDelete } from "react-icons/ti";
+import useAuthSecure from '../../hooks/useAuthSecure';
+import Swal from 'sweetalert2'
+
 
 const AddProduct = () => {
 
@@ -11,10 +14,11 @@ const AddProduct = () => {
   const [loading, setLoading] = useState(false)
   const [tags, setTags] = useState([])
   const [tag, setTag] = useState("")
+  const authSecure = useAuthSecure();
 
   useEffect(() => {
-    register("image", { required: "image is required" })
-    setValue("image", image)
+    register("imageURL", { required: "image is required" })
+    setValue("imageURL", image)
     register("tags", { required: "tags is required" })
     setValue("tags", tags)
   }, [image, tags])
@@ -58,11 +62,21 @@ const AddProduct = () => {
   const handleTags = () => {
     console.log("called")
     if(tag===""){
-      alert("empty tag");
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "Empty Tag!",
+        // footer: '<a href="#">Why do I have this issue?</a>'
+      });
     }else{
       const AlreadyTag = isAlreadyTag(tag)
       if (AlreadyTag) {
-        alert("Already tag is added");
+        Swal.fire({
+          icon: "error",
+          title: "Oops...",
+          text: "This Tag already Been added!",
+          // footer: '<a href="#">Why do I have this issue?</a>'
+        });
       } else {
         setTags([...tags, tag])
         setTag("")
@@ -77,8 +91,15 @@ const AddProduct = () => {
   }
 
 
-  const handleFormSubmit = (data) => {
+  const handleFormSubmit = async(data) => {
     console.log(data);
+    const response = await authSecure.post("/add-product",{product:data})
+    try {
+      console.log(response.data);
+    } catch (error) {
+      console.log(error.message);
+    }
+
   }
 
 
@@ -103,7 +124,7 @@ const AddProduct = () => {
             <div className='w-full '>
               <input type="file" className="file-input w-full " files={image ? image : ""} onChange={(e) => handleFileUpload(e.target.files[0])} />
               {
-                errors?.image && <span className='text-red-500'>{errors.image?.message}</span>
+                errors?.imageURL && <span className='text-red-500'>{errors.imageURL?.message}</span>
               }
             </div>
             <div className='flex flex-col w-full '>
