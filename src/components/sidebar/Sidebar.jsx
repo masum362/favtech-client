@@ -29,7 +29,7 @@ const SideBar = ({ children }) => {
             },
             {
                 path: "/user/my-products",
-                name: "My Product",
+                name: "My Products",
                 icon: <FaList />,
             },
         ]

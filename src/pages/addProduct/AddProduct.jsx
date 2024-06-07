@@ -5,16 +5,18 @@ import CustomBtn from '../../components/customBtn/CustomBtn';
 import { TiDelete } from "react-icons/ti";
 import useAuthSecure from '../../hooks/useAuthSecure';
 import Swal from 'sweetalert2'
+import { useNavigate } from 'react-router-dom';
 
 
 const AddProduct = () => {
 
   const [image, setImage] = useState("")
-  const { handleSubmit, register, reset, getValues, setValue, formState: { errors } } = useForm();
+  const { handleSubmit, register, setValue, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false)
   const [tags, setTags] = useState([])
   const [tag, setTag] = useState("")
   const authSecure = useAuthSecure();
+  const navigate = useNavigate();
 
   useEffect(() => {
     register("imageURL", { required: "image is required" })
@@ -61,14 +63,14 @@ const AddProduct = () => {
 
   const handleTags = () => {
     console.log("called")
-    if(tag===""){
+    if (tag === "") {
       Swal.fire({
         icon: "error",
         title: "Oops...",
         text: "Empty Tag!",
         // footer: '<a href="#">Why do I have this issue?</a>'
       });
-    }else{
+    } else {
       const AlreadyTag = isAlreadyTag(tag)
       if (AlreadyTag) {
         Swal.fire({
@@ -91,10 +93,24 @@ const AddProduct = () => {
   }
 
 
-  const handleFormSubmit = async(data) => {
+  const handleFormSubmit = async (data) => {
     console.log(data);
-    const response = await authSecure.post("/add-product",{product:data})
+    const response = await authSecure.post("/add-product", { product: data })
     try {
+      if (response.status === 200) {
+        Swal.fire({
+          title: "Product added successfully",
+          icon: "success"
+        });
+        navigate("/user/my-products")
+      }
+      else if(response.status === 204) {
+        Swal.fire({
+          title: "You are not eligible to do this.",
+          text:"you are not a subscribed member that's why you are not eligible to add more products then 1.if you want to add unlimited products then please subscribe by paying your subscription fees",
+          icon: "warning"
+        });
+      } 
       console.log(response.data);
     } catch (error) {
       console.log(error.message);
@@ -111,7 +127,7 @@ const AddProduct = () => {
 
   return (
     <div>
-      <h1 className='text-5xl font-bold text-center'>Add New Product</h1>
+      <h1 className='text-2xl md:text-5xl font-bold text-center'>Add New Product</h1>
       <div className='flex flex-col items-center justify-center lg:my-12' >
 
         <div className='max-w-xl w-full bg-slate-50 p-4 shadow-lg rounded-lg' >
@@ -158,15 +174,15 @@ const AddProduct = () => {
             <div className='flex flex-col w-full '>
 
               <label htmlFor="tags" >Tags:</label>
-              <div className='w-full  grid grid-cols-3 gap-2'>
+              <div className='w-full  grid grid-cols-1 md:grid-cols-3 gap-2'>
                 {
                   tags?.map((tag, i) => {
-                    return <span key={i} className='border bg-transparent font-semibold text-md px-4 py-2 my-4'>{tag} <button onClick={() => handleDeleteTag(tag)}>< TiDelete /></button></span>
+                    return <span key={i} className='border bg-transparent font-semibold text-md px-4 py-2 lg:my-4 mby-2'>{tag} <button onClick={() => handleDeleteTag(tag)}>< TiDelete /></button></span>
                   })
                 }
               </div>
               <div className='w-full  flex items-center '>
-                <input type="text" name="tags" id="tags" placeholder="Type here" onChange={(e) => handleTag(e.target.value)} className="input input-bordered w-full "  value={tag}/>
+                <input type="text" name="tags" id="tags" placeholder="Type here" onChange={(e) => handleTag(e.target.value)} className="input input-bordered w-full " value={tag} />
                 <span onClick={handleTags}><CustomBtn style={"bg-slate-900"} btnType={"button"} text={"Add"}></CustomBtn></span>
               </div>
               {
@@ -177,7 +193,7 @@ const AddProduct = () => {
 
 
 
-            {!loading ? <CustomBtn btnType={"submit"} text={"Add Product"} style={"w-full"} /> : <div className='text-themePrimary'>
+            {!loading ? <CustomBtn btnType={"submit"} text={"Submit"} style={"w-full"} /> : <div className='text-themePrimary'>
               <span className="loading loading-ball loading-xs"></span>
               <span className="loading loading-ball loading-sm"></span>
               <span className="loading loading-ball loading-md"></span>
