@@ -19,8 +19,6 @@ const ProductReviews = () => {
 
 
   const handleFeatured = async (productId) => {
-
-
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -94,16 +92,16 @@ const ProductReviews = () => {
     });
   }
 
-  console.log(products)
+ 
 
 
   return (
-    <div>
+    <div className=''>
       <h1 className='text-2xl md:text-5xl font-bold text-center'>Product Review Queue</h1>
-      <div className='shadow-xl m-auto mt-12 max-w-2xl'>
+      <div className='shadow-xl m-auto mt-12 lg:max-w-2xl max-w-full overflow-hidden '>
         {
-          products.length > 0 && <div className="overflow-x-auto table-zebra w-full">
-            <table className="table w-full">
+          products.length > 0 && <div className="overflow-x-auto table-zebra">
+            <table className="table">
               {/* head */}
               <thead className='text-black'>
                 <tr>

@@ -1,8 +1,8 @@
 import { NavLink } from "react-router-dom";
-import { FaBars, FaList, FaUser ,FaUsers } from "react-icons/fa";
-import { IoAddCircle ,IoGridSharp } from "react-icons/io5";
-import {  MdReviews,MdReport} from "react-icons/md";
-import { BiSolidCoupon} from "react-icons/bi";
+import { FaBars, FaList, FaUser, FaUsers } from "react-icons/fa";
+import { IoAddCircle, IoGridSharp } from "react-icons/io5";
+import { MdReviews, MdReport } from "react-icons/md";
+import { BiSolidCoupon } from "react-icons/bi";
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SidebarMenu from "./SidebarMenu";
@@ -15,7 +15,7 @@ const SideBar = ({ children }) => {
     let routes = []
 
 
-    if(user.role==="user"){
+    if (user.role === "user") {
         routes = [
             {
                 path: "/user/my-profile",
@@ -34,7 +34,7 @@ const SideBar = ({ children }) => {
             },
         ]
     }
-    else if(user.role==="moderator"){
+    else if (user.role === "moderator") {
         routes = [
             {
                 path: "/moderator/product-reviews",
@@ -48,12 +48,12 @@ const SideBar = ({ children }) => {
             },
         ]
     }
-    else{
+    else {
         routes = [
             {
                 path: "/admin/statistics",
                 name: "Statistics",
-                icon: <IoGridSharp  />,
+                icon: <IoGridSharp />,
             },
             {
                 path: "/admin/manage-users",
@@ -104,7 +104,7 @@ const SideBar = ({ children }) => {
         },
         show: {
             opacity: 1,
-            width: "auto",
+            width: "200px",
             transition: {
                 duration: 0.5,
             },
@@ -113,79 +113,124 @@ const SideBar = ({ children }) => {
 
     return (
         <>
-            <div className="main-container ">
-                <motion.div
-                    animate={{
-                        width: isOpen ? "auto" : "45px",
-                        transition: {
-                            duration: 0.5,
-                            type: "spring",
-                            damping: 10,
-                        },
-                    }}
-                    className={`sidebar overflow-hidden  
+            <div className="main-container   w-full">
+                <div>
+                    <motion.div
+                        animate={{
+                            width: "45px",
+                            transition: {
+                                duration: 0.5,
+                                type: "spring",
+                                damping: 10,
+                            },
+                        }}
+                        className={`sidebar overflow-hidden block md:hidden  
                     `}
-                >
-                    <div className="top_section gap-4 ">
-                        <AnimatePresence>
-                            {isOpen && (
-                                <motion.h1
-                                    variants={showAnimation}
-                                    initial="hidden"
-                                    animate="show"
-                                    exit="hidden"
-                                    className="logo hidden md:block "
-                                >
-                                    ProductHunt
-                                </motion.h1>
-                            )}
-                        </AnimatePresence>
+                    >
+                        <div className="top_section gap-4 ">
 
-                        <div className="bars cursor-pointer">
-                            <FaBars onClick={toggle} />
+                            <div className="bars cursor-pointer">
+                                <FaBars/>
+                            </div>
                         </div>
-                    </div>
-                  
-                    <section className="routes">
-                        {routes.map((route, index) => {
-                            if (route.subRoutes) {
+
+                        <section className="routes">
+                            {routes.map((route, index) => {
+                                if (route.subRoutes) {
+                                    return (
+                                        <SidebarMenu
+                                            setIsOpen={setIsOpen}
+                                            route={route}
+                                        />
+                                    );
+                                }
+
                                 return (
-                                    <SidebarMenu
-                                        setIsOpen={setIsOpen}
-                                        route={route}
-                                        showAnimation={showAnimation}
-                                        isOpen={isOpen}
-                                    />
+                                    <NavLink
+                                        to={route.path}
+                                        key={index}
+                                        className="link"
+                                        activeClassName="active"
+                                    >
+                                        <div className="icon">{route.icon}</div>
+                                    </NavLink>
                                 );
-                            }
+                            })}
+                        </section>
+                    </motion.div>
 
-                            return (
-                                <NavLink
-                                    to={route.path}
-                                    key={index}
-                                    className="link"
-                                    activeClassName="active"
-                                >
-                                    <div className="icon">{route.icon}</div>
-                                    <AnimatePresence>
-                                        {isOpen && (
-                                            <motion.div
-                                                variants={showAnimation}
-                                                initial="hidden"
-                                                animate="show"
-                                                exit="hidden"
-                                                className="link_text hidden md:block"
-                                            >
-                                                {route.name}
-                                            </motion.div>
-                                        )}
-                                    </AnimatePresence>
-                                </NavLink>
-                            );
-                        })}
-                    </section>
-                </motion.div>
+                    <motion.div
+                        animate={{
+                            width: isOpen ? "200px" : "45px",
+                            transition: {
+                                duration: 0.5,
+                                type: "spring",
+                                damping: 10,
+                            },
+                        }}
+                        className={`sidebar overflow-hidden md:block hidden  
+                    `}
+                    >
+                        <div className="top_section gap-4 ">
+                            <AnimatePresence>
+                                {isOpen && (
+                                    <motion.h1
+                                        variants={showAnimation}
+                                        initial="hidden"
+                                        animate="show"
+                                        exit="hidden"
+                                        className="logo "
+                                    >
+                                        ProductHunt
+                                    </motion.h1>
+                                )}
+                            </AnimatePresence>
 
+                            <div className="bars cursor-pointer">
+                                <FaBars onClick={toggle} />
+                            </div>
+                        </div>
+
+                        <section className="routes">
+                            {routes.map((route, index) => {
+                                if (route.subRoutes) {
+                                    return (
+                                        <SidebarMenu
+                                            setIsOpen={setIsOpen}
+                                            route={route}
+                                            showAnimation={showAnimation}
+                                            isOpen={isOpen}
+                                        />
+                                    );
+                                }
+
+                                return (
+                                    <NavLink
+                                        to={route.path}
+                                        key={index}
+                                        className="link"
+                                        activeClassName="active"
+                                    >
+                                        <div className="icon">{route.icon}</div>
+                                        <AnimatePresence>
+                                            {isOpen && (
+                                                <motion.div
+                                                    variants={showAnimation}
+                                                    initial="hidden"
+                                                    animate="show"
+                                                    exit="hidden"
+                                                    className="link_text"
+                                                >
+                                                    {route.name}
+                                                </motion.div>
+                                            )}
+                                        </AnimatePresence>
+                                    </NavLink>
+                                );
+                            })}
+                        </section>
+                    </motion.div>
+                </div>
                 <main className="w-full">{children}</main>
             </div>
         </>

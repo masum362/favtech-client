@@ -9,9 +9,7 @@ const useModerator = () => {
         queryKey: [user?.uid, 'isModerator'],
         enabled: !loading && !!user?.uid,
         queryFn: async () => {
-            console.log('asking or checking is Moderator', user)
             const res = await authSecure.get(`/users/moderator/${user?.uid}`);
-            // console.log(res.data);
             return res.data?.moderator;
         }
     })
