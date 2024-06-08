@@ -23,6 +23,7 @@
     "react-router-dom": "^6.23.1",
     "react-tag-input": "^6.10.2",
     "react-toastify": "^10.0.5",
+    "recharts": "^2.12.7",
     "simplebar-react": "^3.2.5",
     "sweetalert2": "^11.11.1",
     "swiper": "^11.1.4"
