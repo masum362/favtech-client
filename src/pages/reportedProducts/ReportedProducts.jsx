@@ -3,11 +3,12 @@ import React from 'react'
 import useAuthSecure from '../../hooks/useAuthSecure'
 import { Link } from 'react-router-dom';
 import { FaEye, FaRegStar } from 'react-icons/fa';
+import Swal from 'sweetalert2'
 
 const ReportedProducts = () => {
 
   const authSecure = useAuthSecure();
-  const {data:products=[],isError,refetch} = useQuery({
+  const { data: products = [], isError, refetch } = useQuery({
     queryKey: ["reported_contents"],
     queryFn: async () => {
       const response = await authSecure("/get-reported-contents");
@@ -15,9 +16,30 @@ const ReportedProducts = () => {
     }
   })
 
-{  console.log(products)
-}
+  const handleDelete = async (productId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await authSecure.delete(`/reported-content/delete/${productId}`);
+        if (response.status === 200) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+          refetch()
+        }
 
+      }
+    });
+  };
 
 
   return (
@@ -46,14 +68,7 @@ const ReportedProducts = () => {
                       <div className="tooltip" data-tip="view details">
                         <Link to={`/product/${product.productId._id}`}><button className='btn bg-themePrimary/80 hover:bg-themePrimary text-white'><FaEye /></button></Link>
                       </div>
-                      {!product.productId.isFeatured && <div className="tooltip" data-tip="make featured"><button className='btn bg-yellow-600 hover:bg-yellow-800 text-white'><FaRegStar /></button></div>}
-                      {
-                        product.productId.status !== "accepted" && <button className='btn bg-green-600 text-white hover:bg-green-700'>Accept</button>
-                      }
-                      {
-                        product.productId.status !== "rejected" && <button className='btn bg-red-600 hover:bg-red-800 text-white'>Reject</button>
-                      }
-
+                      <button className='btn bg-red-600 hover:bg-red-800 text-white' onClick={() => handleDelete(product.productId._id)}>Delete</button>
                     </td>
 
                   </tr>)
