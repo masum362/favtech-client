@@ -26,8 +26,8 @@ const ProductReviews = () => {
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
+      confirmButtonColor: "#FF6154",
+      cancelButtonColor: "#000",
       confirmButtonText: "Yes, Feature it!"
     }).then(async (result) => {
       if (result.isConfirmed) {
@@ -56,11 +56,43 @@ const ProductReviews = () => {
       }
     });
   }
-  
-  // const handleFeatured = async(productId) => {
-  //   const response = await authSecure.put(`/product/feature/${productId}`);
-  //   console.log(response);
-  // }
+
+  const handleStatus = async (productId,{status}) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#FF6154",
+      cancelButtonColor: "#000",
+      confirmButtonText: `Yes, ${status} it!`,
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await authSecure.patch(`/product/status/${productId}`,{status});
+        if (response.status === 200) {
+          Swal.fire({
+            title: `${status} done!`,
+            text: `Your product has been ${status} succesffully.`,
+            icon: "success"
+          });
+          refetch()
+        }
+        else if (response.status === 204) {
+          Swal.fire({
+            icon: "error",
+            title: `Already ${status} Product!`,
+            // footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Something went wrong!",
+            // footer: '<a href="#">Why do I have this issue?</a>'
+          });
+        }
+      }
+    });
+  }
 
   console.log(products)
 
@@ -94,10 +126,10 @@ const ProductReviews = () => {
                       </div>
                       {!product.isFeatured && <div className="tooltip" data-tip="make featured"><button className='btn bg-yellow-600 hover:bg-yellow-800 text-white' onClick={() => handleFeatured(product._id)}><FaRegStar /></button></div>}
                       {
-                        product.status !== "accepted" && <button onClick={() => handleAccept(product._id)} className='btn bg-green-600 text-white hover:bg-green-700'>Accept</button>
+                        product.status !== "accepted" && <button onClick={() => handleStatus(product._id,{status:"accepted"})} className='btn bg-green-600 text-white hover:bg-green-700'>Accept</button>
                       }
                       {
-                        product.status !== "rejected" && <button onClick={() => handleReject(product._id)} className='btn bg-red-600 hover:bg-red-800 text-white'>Reject</button>
+                        product.status !== "rejected" && <button onClick={() => handleStatus(product._id,{status:"rejected"})} className='btn bg-red-600 hover:bg-red-800 text-white'>Reject</button>
                       }
 
                     </td>
