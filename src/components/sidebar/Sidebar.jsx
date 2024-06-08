@@ -38,7 +38,7 @@ const SideBar = ({ children }) => {
         routes = [
             {
                 path: "/moderator/product-reviews",
-                name: "product Reviews Queue",
+                name: "product Reviews",
                 icon: <MdReviews />,
             },
             {
@@ -86,7 +86,7 @@ const SideBar = ({ children }) => {
             },
         },
         show: {
-            width: "140px",
+            width: "200px",
             padding: "5px 15px",
             transition: {
                 duration: 0.2,
