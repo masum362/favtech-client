@@ -29,8 +29,6 @@ const Statistics = () => {
     }
   })
 
-
-  console.log(data)
   return (
     <div>
       <h1 className='text-2xl md:text-5xl font-bold text-center'>Statistics</h1>
