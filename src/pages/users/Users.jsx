@@ -15,8 +15,8 @@ const Users = () => {
     }
   })
 
-  const handleRole = async (userId, role ) => {
-console.log(userId,role);
+  const handleRole = async (userId, role) => {
+    console.log(userId, role);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -40,6 +40,32 @@ console.log(userId,role);
       }
     });
 
+  }
+
+
+  const handleRemoveRole =async(userId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: `Yes, Remove !`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const response = await authSecure.patch(`/user/role/remove/${userId}`);
+        if (response.status === 200) {
+          Swal.fire({
+            title: "Succeed!",
+            text: `now user is only normal user`,
+            icon: "success"
+          });
+          refetch()
+        }
+
+      }
+    });
   }
 
   return (
@@ -76,10 +102,16 @@ console.log(userId,role);
                   <td>{user.email}</td>
                   <td>{user.role}</td>
                   <td className='flex gap-2'>
-                    <button className='btn bg-yellow-600 text-white hover:bg-yellow-800  '
-                      onClick={() => handleRole(user?.uid, "moderator")}>Make Moderator</button>
-                    <button className='btn bg-themePrimary text-white hover:bg-themePrimary/50 '
-                      onClick={() => handleRole(user?.uid, "admin")}>Make Admin</button>
+                    {
+                      user.role === "moderator" ? <button className='btn bg-yellow-600 text-white hover:bg-yellow-800  '
+                        onClick={() => handleRemoveRole(user?.uid)}>Remove Moderator</button> : <button className='btn bg-yellow-600 text-white hover:bg-yellow-800  '
+                          onClick={() => handleRole(user?.uid, "moderator")}>Make Moderator</button>
+                    }
+                    {
+                      user.role === "admin" ? <button className='btn bg-themePrimary text-white hover:bg-themePrimary/50 '
+                        onClick={() => handleRemoveRole(user?.uid)}>Remove Admin</button> : <button className='btn bg-themePrimary text-white hover:bg-themePrimary/50 '
+                          onClick={() => handleRole(user?.uid, "admin")}>Make Admin</button>
+                    }
                   </td>
                 </tr>)
               }
