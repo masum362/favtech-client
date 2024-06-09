@@ -17,6 +17,7 @@ import ReportedProducts from '../pages/reportedProducts/ReportedProducts'
 import Statistics from '../pages/statistics/Statistics';
 import Users from '../pages/users/Users';
 import Coupons from '../pages/coupons/Coupons';
+import ProductPage from "../pages/productPage/ProductPage";
 
 export const router = createBrowserRouter([
     {
@@ -40,55 +41,59 @@ export const router = createBrowserRouter([
                 path: "/register",
                 element: <Register />
             },
-           
+            {
+                path: "/product/:id",
+                element: <UserAuth><ProductPage /></UserAuth>
+            }
+
         ]
     }, {
         path: "/user",
         element: <OnlyUserAuth></OnlyUserAuth>,
-        children:[
+        children: [
             {
-                path:"/user/my-profile",
-                element:<SideBar><MyProfile /></SideBar>
+                path: "/user/my-profile",
+                element: <SideBar><MyProfile /></SideBar>
             },
             {
-                path:"/user/add-product",
-                element:<SideBar><AddProduct /></SideBar>
+                path: "/user/add-product",
+                element: <SideBar><AddProduct /></SideBar>
             },
             {
-                path:"/user/my-products",
-                element:<SideBar><MyProduct /></SideBar>
+                path: "/user/my-products",
+                element: <SideBar><MyProduct /></SideBar>
             },
         ]
-    },{
+    }, {
         path: "/moderator",
-        element:<ModeratorAuth></ModeratorAuth>,
-        children:[
-        {
-            path:"/moderator/product-reviews",
-            element:<SideBar><ProductReviews /></SideBar>
-        },
-        {
-            path:"/moderator/reported-contents",
-            element:<SideBar><ReportedProducts /></SideBar>
-        },
-       ]
+        element: <ModeratorAuth></ModeratorAuth>,
+        children: [
+            {
+                path: "/moderator/product-reviews",
+                element: <SideBar><ProductReviews /></SideBar>
+            },
+            {
+                path: "/moderator/reported-contents",
+                element: <SideBar><ReportedProducts /></SideBar>
+            },
+        ]
     },
     {
         path: "/admin",
-        element:<AdminAuth></AdminAuth>,
-        children:[
-        {
-            path:"/admin/statistics",
-            element:<SideBar><Statistics></Statistics></SideBar>
-        },
-        {
-            path:"/admin/manage-users",
-            element:<SideBar><Users></Users></SideBar>
-        },
-        {
-            path:"/admin/manage-coupons",
-            element:<SideBar><Coupons></Coupons></SideBar>
-        },
-       ]
+        element: <AdminAuth></AdminAuth>,
+        children: [
+            {
+                path: "/admin/statistics",
+                element: <SideBar><Statistics></Statistics></SideBar>
+            },
+            {
+                path: "/admin/manage-users",
+                element: <SideBar><Users></Users></SideBar>
+            },
+            {
+                path: "/admin/manage-coupons",
+                element: <SideBar><Coupons></Coupons></SideBar>
+            },
+        ]
     },
 ])

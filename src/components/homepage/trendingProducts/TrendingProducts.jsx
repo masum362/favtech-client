@@ -24,7 +24,7 @@ const TrendingProducts = () => {
             const response = await authSecure.patch(`/upvote/${productId}`, { userId });
             console.log(response);
             if (response.status === 200) {
-                alert('Upvote updated successfully');
+                // alert('Upvote updated successfully');
                 refetch();
             }
         }
