@@ -71,7 +71,9 @@ const MyProduct = () => {
                   <td>{product.name}</td>
                   <td>{product.upvote}</td>
                   <td ><span className={`${product.status === "pending" ? "text-black bg-yellow-500" : product.status === "accepted" ? "text-white bg-green-600" : "text-white bg-red-600"} px-4 py-1 rounded-full`}>{product.status}</span></td>
-                  <td className='flex gap-2'><CustomBtn text={"Update"} style={"bg-themeSecondary border-themePrimary text-slate-900 hover:bg-themePrimary/40 duration-300 "}></CustomBtn><span onClick={()=>handleDelete(product._id)}><CustomBtn text={"Delete"}></CustomBtn></span></td>
+                  <td className='flex gap-2'>
+                    <CustomBtn text={"Update"} style={"bg-yellow-600 hover:bg-yellow-400"}></CustomBtn>
+                  <span onClick={()=>handleDelete(product._id)}><CustomBtn text={"Delete"}></CustomBtn></span></td>
 
                 </tr>)
               }

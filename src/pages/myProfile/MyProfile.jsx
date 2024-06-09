@@ -17,6 +17,7 @@ const CheckoutForm = () => {
   const [isProcessing, setIsProcessing] = useState(false);
 
   const handleSubmit = async (event) => {
+    console.log('clicked')
     event.preventDefault();
     setIsProcessing(true);
 
@@ -34,11 +35,25 @@ const CheckoutForm = () => {
     });
 
     if (error) {
+      console.log(error);
+      toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      })
+
       setIsProcessing(false);
     } else {
+
       console.log('Payment successful!', paymentIntent);
       const response = await authSecure.post("/payment/subscribe", { paymentIntentId: paymentIntent.id, uid: user.uid })
-      setUser({ ...user, isSubscribed: true})
+      setUser({ ...user, isSubscribed: true })
       if (response.data.success) {
         toast.success('Subscription done!', {
           position: "top-right",
