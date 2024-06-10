@@ -22,6 +22,7 @@ import AllProducts from "../pages/allProducts/AllProducts";
 import UpdateProduct from "../pages/updateProduct/UpdateProduct";
 import AddCoupon from "../pages/coupons/AddCoupon";
 import UpdateCoupon from "../pages/coupons/UpdateCoupon";
+import ErrorPage from "../components/error/ErrorPage";
 
 const token = localStorage.getItem('access-token')
 
@@ -29,7 +30,7 @@ export const router = createBrowserRouter([
     {
         path: "/",
         element: <App />,
-        errorElement: <div>Erorr</div>,
+        errorElement: <ErrorPage />,
         children: [
             {
                 path: "/",
@@ -116,6 +117,12 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/admin/update/coupon/:id",
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/coupon/${params.id}`, {
+                    method: "GET",
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    }
+                }),
                 element: <SideBar><UpdateCoupon></UpdateCoupon></SideBar>
             },
         ]

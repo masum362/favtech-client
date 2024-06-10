@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useForm, Controller } from 'react-hook-form';
 import CustomBtn from '../../components/customBtn/CustomBtn';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLoaderData, useNavigate, useParams } from 'react-router-dom';
 import useAuthSecure from '../../hooks/useAuthSecure';
 import Swal from 'sweetalert2';
 import { useQuery } from '@tanstack/react-query';
@@ -15,15 +15,17 @@ const UpdateCoupon = () => {
     const navigate = useNavigate();
     const authSecure = useAuthSecure();
     const { id } = useParams();
+    const coupon = useLoaderData();
 
 
-    const { data: coupon = {}, isLoading } = useQuery({
-        queryKey: ["coupon"],
-        queryFn: async () => {
-            const response = await authSecure(`/coupon/${id}`)
-            return response.data
-        }
-    })
+    // const { data: coupon = {}, isLoading } = useQuery({
+    //     queryKey: ["coupon",id],
+    //     queryFn: async () => {
+    //         const response = await authSecure(`/coupon/${id}`)
+    //         console.log(response);
+    //         return response.data
+    //     }
+    // })
 
     const { control, handleSubmit, register, formState: { errors } } = useForm({
         defaultValues: {
@@ -71,7 +73,7 @@ const UpdateCoupon = () => {
             <div className='flex flex-col items-center justify-center lg:my-12' >
 
                 {
-                    isLoading ? <div>Loading</div> : <div className='max-w-xl w-full bg-slate-50 p-4 shadow-lg rounded-lg' >
+                      <div className='max-w-xl w-full bg-slate-50 p-4 shadow-lg rounded-lg' >
                         <form className='w-full space-y-4 my-8 ' onSubmit={handleSubmit(handleFormSubmit)}>
 
                             <div className='flex flex-col w-full '>

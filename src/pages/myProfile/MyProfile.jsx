@@ -15,13 +15,16 @@ const CheckoutForm = () => {
   const authSecure = useAuthSecure();
   const { user, setUser } = useAuth();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [coupon, setCoupon] = useState("");
+  const [isCoupon, setIsCoupon] = useState(false);
+  const [amount, setAmount] = useState(100);
 
   const handleSubmit = async (event) => {
     console.log('clicked')
     event.preventDefault();
     setIsProcessing(true);
 
-    const response = await authSecure.post('/create-payment-intent', { customerEmail: user?.email });
+    const response = await authSecure.post('/create-payment-intent', { customerEmail: user?.email,amount });
 
     const { clientSecret } = response.data;
 
@@ -68,14 +71,47 @@ const CheckoutForm = () => {
         })
       }
       setIsProcessing(false);
-      // Optionally, you can redirect to a success page or show a success message
     }
   };
 
+  const handleCouponCode = async () => {
+    console.log({ coupon })
+    const response = await authSecure.post("/use/coupon", { coupon })
+    if (response.status == 200) {
+      console.log(response.data);
+      setAmount(response.data)
+      toast.success('wow,you get a discount!', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      })
+      setCoupon("");
+      setIsCoupon(false);
+    }
+  }
+
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
-      <div className='flex items-center gap-2 w-full'>
-        <label htmlFor="email">Email:</label>
+
+      <div className='flex items-center justify-between gap-4'>
+        <p className='text-lg font-bold hover:text-themePrimary underline cursor-pointer' onClick={() => setIsCoupon(!isCoupon)}>Have any coupon code?</p>
+
+      </div>
+      {
+        isCoupon && <>
+          <div className='w-full flex'>
+            <input type="text" name='coupon' id='name' placeholder='Enter your coupon' className='input w-full' onChange={(e) => setCoupon(e.target.value)} />
+            <button type='button' className='btn btn-accent' onClick={handleCouponCode}>Add Coupon</button>
+          </div>
+        </>
+      }
+      <div className=' flex flex-col items-start gap-2 w-full'>
         <input
           type="email"
           placeholder="Email"
@@ -83,11 +119,11 @@ const CheckoutForm = () => {
           disabled={true}
           onChange={(e) => setEmail(e.target.value)}
           required
-          className='input'
+          className='input w-full'
         />
       </div>
       <CardElement />
-      <CustomBtn btnType="submit" disabled={!stripe || !elements || isProcessing} text={isProcessing ? 'Processing...' : 'Pay $50'}>
+      <CustomBtn btnType="submit" disabled={!stripe || !elements || isProcessing} text={isProcessing ? 'Processing...' : `Pay $${amount}`}>
       </CustomBtn>
     </form>
   );
@@ -114,10 +150,11 @@ const MyProfile = () => {
           {
             user?.isSubscribed ? <p>Status: <span className='text-themePrimary'>Verified</span></p> : <>
               {
-                !isWantedSubscribe && <span onClick={() => setIsWantedSubscribe(IoTrendingUp)}><CustomBtn text={"Subscribe"} ></CustomBtn></span>
+                !isWantedSubscribe && <span onClick={() => setIsWantedSubscribe(!isWantedSubscribe)}><CustomBtn text={"Subscribe"} ></CustomBtn></span>
               }
               {
                 isWantedSubscribe && <>
+
                   <Elements stripe={stripePromise}>
                     <CheckoutForm />
                   </Elements>
