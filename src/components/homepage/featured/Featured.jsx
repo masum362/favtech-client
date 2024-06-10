@@ -4,6 +4,7 @@ import { IoIosArrowUp } from "react-icons/io";
 import useAuth from '../../../hooks/useAuth';
 import useAuthSecure from '../../../hooks/useAuthSecure';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import Loading from '../../loading/Loading';
 
 
 const Featured = () => {
@@ -35,9 +36,10 @@ const Featured = () => {
         <div className=' lg:px-12 p-2'>
             <h1 className='text-2xl md:text-4xl lg:text-5xl font-bold text-center'>Featured Products</h1>
 
-            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12'>
+            <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12 w-full'>
                 {
-                    featuredProduct.map(product => <div className='w-full rounded-lg card hover:shadow-2xl bg-white p-4' key={product._id}>
+
+                    isLoading ? <Loading /> : featuredProduct.map(product => <div className='w-full rounded-lg card hover:shadow-2xl bg-white p-4' key={product._id}>
                         <figure>
                             <img src={product.imageURL} alt="" className='w-full h-60 object-cover rounded-lg' />
                         </figure>
@@ -60,7 +62,7 @@ const Featured = () => {
                 }
             </div>
 
-        </div>
+        </div >
     )
 }
 

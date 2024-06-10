@@ -23,7 +23,9 @@ const Register = () => {
                     email,
                     photoURL,
                     uid: result.user.uid
-                }                    
+                }
+                console.log({user})
+                await authPublic.post("/register", user)
                 console.log('user updated')
                 toast.success('Successfully Registered user', {
                     position: "top-right",

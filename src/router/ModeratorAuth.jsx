@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useModerator from "../hooks/useModerator";
+import Loading from "../components/loading/Loading";
 
 
 const ModeratorAuth = () => {
@@ -9,7 +10,7 @@ const ModeratorAuth = () => {
     const location = useLocation();
 
     if (loading || isModeratorLoading) {
-        return <progress className="progress w-56"></progress>
+        return <Loading />
     }
 
     if (user && isModerator) {

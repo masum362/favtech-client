@@ -113,8 +113,8 @@ const SideBar = ({ children }) => {
 
     return (
         <>
-            <div className="main-container   w-full">
-                <div>
+            <div className="main-container h-auto  w-full">
+                <div className="">
                     <motion.div
                         animate={{
                             width: "45px",
@@ -179,9 +179,9 @@ const SideBar = ({ children }) => {
                                         initial="hidden"
                                         animate="show"
                                         exit="hidden"
-                                        className="logo "
+                                        className="logo uppercase"
                                     >
-                                        ProductHunt
+                                        {import.meta.env.VITE_TITLE}
                                     </motion.h1>
                                 )}
                             </AnimatePresence>

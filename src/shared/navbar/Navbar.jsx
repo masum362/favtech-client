@@ -2,6 +2,7 @@ import React from 'react'
 import { Link, NavLink } from 'react-router-dom'
 import CustomBtn from '../../components/customBtn/CustomBtn'
 import useAuth from '../../hooks/useAuth'
+import Logo from '../../components/logo/Logo'
 
 const Navbar = () => {
     const { user, LogOutUser } = useAuth();
@@ -23,14 +24,12 @@ const Navbar = () => {
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" /></svg>
                         </div>
                         <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
-                            <li><NavLink className={({ isActive }) => `${isActive && 'text-themePrimary'} hover:text-themePrimary capitalize active:text-themeSecondary `} to={"/"}>home</NavLink></li>
+                            <li><NavLink className={({ isActive }) => `${isActive && 'text-themePrimary'} hover:text-themePrimary capitalize active:text-themeSecondary text-black `} to={"/"}>home</NavLink></li>
                             <li><NavLink className={({ isActive }) => `${isActive && 'text-themePrimary'} hover:text-themePrimary capitalize active:text-themeSecondary `} to={"/products"}>products</NavLink></li>
 
                         </ul>
                     </div>
-                    <div className='text-white bg-themePrimary w-10 h-10 font-bold rounded-full flex items-center justify-center'>
-                        <h1 className='text-3xl' >P</h1>
-                    </div>
+                    <Link to={"/"}><Logo /></Link>
 
                 </div>
                 <div className=" navbar-center hidden md:flex">

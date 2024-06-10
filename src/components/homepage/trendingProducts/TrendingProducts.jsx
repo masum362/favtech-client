@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import useAuth from '../../../hooks/useAuth'
 import useAuthSecure from '../../../hooks/useAuthSecure'
 import useTrendingProducts from '../../../hooks/useTrendingProducts'
+import Loading from '../../loading/Loading'
 
 const TrendingProducts = () => {
     const { user } = useAuth();
@@ -35,9 +36,9 @@ const TrendingProducts = () => {
         <div className=' lg:px-12 p-2'>
             <h1 className='text-2xl md:text-4xl lg:text-5xl font-bold text-center'>Trending Products</h1>
 
-            <div className='grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-8 my-12'>
+            <div className='grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-8 my-12 w-full'>
                 {
-                    products.slice(0, 6).map(product => <div className='w-full card bg-base-100 shadow-xl  rounded-lg p-4 hover:shadow-2xl ' key={product._id}>
+                    isLoading ? <Loading /> : products.slice(0, 6).map(product => <div className='w-full card bg-base-100 shadow-xl  rounded-lg p-4 hover:shadow-2xl ' key={product._id}>
                         <figure>
                             <img src={product.imageURL} alt="" className='w-full h-60 object-cover rounded-lg' />
                         </figure>

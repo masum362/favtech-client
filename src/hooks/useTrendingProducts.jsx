@@ -7,7 +7,7 @@ const useTrendingProducts = () => {
     const { data: products = [], isLoading, refetch, } = useQuery({
         queryKey: ["trendingProducts"],
         queryFn: async () => {
-            const response = await authPublic("/trending-products");
+            const response = await authPublic("/all-products");
             return response.data;
         }
     })

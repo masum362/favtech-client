@@ -1,13 +1,14 @@
 import React from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import useAuth from '../hooks/useAuth';
+import Loading from '../components/loading/Loading';
 
 const OnlyUserAuth = ({ children }) => {
     const { user, loading } = useAuth();
     const location = useLocation();
 
     if (loading) {
-        return <progress className="progress w-56"></progress>
+        return <Loading />
     }
 
     if (user && user?.role === "user") {

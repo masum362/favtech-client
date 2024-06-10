@@ -1,6 +1,7 @@
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useAdmin from "../hooks/useAdmin";
+import Loading from "../components/loading/Loading";
 
 const AdminAuth = () => {
     const { user, loading } = useAuth();
@@ -9,7 +10,7 @@ const AdminAuth = () => {
 
     console.log(user,isAdmin)
     if (loading || isAdminLoading) {
-        return <progress className="progress w-56"></progress>
+        return <Loading></Loading>
     }
 
     if (user && isAdmin) {

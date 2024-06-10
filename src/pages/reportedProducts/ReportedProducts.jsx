@@ -16,6 +16,8 @@ const ReportedProducts = () => {
     }
   })
 
+  console.log({ products });
+
   const handleDelete = async (productId) => {
     Swal.fire({
       title: "Are you sure?",
@@ -60,15 +62,15 @@ const ReportedProducts = () => {
               <tbody>
                 {/* row 1 */}
                 {
-                  products?.map((product, index) => <tr key={product.productId._id}>
+                  products?.map((product, index) => <tr key={product.productId?._id}>
                     <th>{index + 1}</th>
-                    <td>{product.productId.name}</td>
+                    <td>{product?.productId?.name}</td>
 
                     <td className='flex gap-2'>
                       <div className="tooltip" data-tip="view details">
-                        <Link to={`/product/${product.productId._id}`}><button className='btn bg-themePrimary/80 hover:bg-themePrimary text-white'><FaEye /></button></Link>
+                        <Link to={`/product/${product?.productId?._id}`}><button className='btn bg-themePrimary/80 hover:bg-themePrimary text-white'><FaEye /></button></Link>
                       </div>
-                      <button className='btn bg-red-600 hover:bg-red-800 text-white' onClick={() => handleDelete(product.productId._id)}>Delete</button>
+                      <button className='btn bg-red-600 hover:bg-red-800 text-white' onClick={() => handleDelete(product.productId?._id)}>Delete</button>
                     </td>
 
                   </tr>)

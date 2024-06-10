@@ -134,7 +134,7 @@ const AddProduct = () => {
           <form className='w-full space-y-4 my-8 ' onSubmit={handleSubmit(handleFormSubmit)}>
             <div className='w-full  h-full flex items-center justify-center m-4'>
               {
-                image && <img src={image} alt="imageUrl" className='w-48 h-48 object-cover' />
+                image && <img src={image} alt="imageUrl" className='w-48 h-48 object-contain' />
               }
             </div>
             <div className='w-full '>

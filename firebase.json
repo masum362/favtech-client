@@ -1,7 +1,17 @@
 {
-    "hosting": {
-      "site": "producthunt-lite",
-  
-      "public": "dist"
-    }
+  "hosting": {
+    "site": "producthunt-lite",
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
+}

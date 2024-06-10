@@ -99,7 +99,7 @@ const CheckoutForm = () => {
   return (
     <form onSubmit={handleSubmit} className='flex flex-col gap-4 w-full'>
 
-      <div className='flex items-center justify-between gap-4'>
+      <div className='flex items-center justify-between gap-4 w-full'>
         <p className='text-lg font-bold hover:text-themePrimary underline cursor-pointer' onClick={() => setIsCoupon(!isCoupon)}>Have any coupon code?</p>
 
       </div>
