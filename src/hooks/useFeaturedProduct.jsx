@@ -1,14 +1,15 @@
 import { useQuery } from '@tanstack/react-query'
 import React from 'react'
 import useAuthSecure from './useAuthSecure'
+import useAuthPublic from './useAuthPublic';
 
 
 const useFeaturedProduct = () => {
-    const authSecure = useAuthSecure();
+    const authPublic = useAuthPublic();
     const { data: featuredProduct = [], isLoading, refetch, } = useQuery({
         queryKey: ["featuredProduct"],
         queryFn: async () => {
-            const response = await authSecure("/featuredProduct");
+            const response = await authPublic("/featuredProduct");
             return response.data;
         }
     })

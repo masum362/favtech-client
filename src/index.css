@@ -164,7 +164,7 @@ main {
 .tooltip {
   display: inline-block;
   padding: 5px 15px;
-  background-color: #333;
+  /* background-color: #333; */
   color: #fff;
   vertical-align: middle;
   border-radius: 5px;

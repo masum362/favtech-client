@@ -18,6 +18,7 @@ import Statistics from '../pages/statistics/Statistics';
 import Users from '../pages/users/Users';
 import Coupons from '../pages/coupons/Coupons';
 import ProductPage from "../pages/productPage/ProductPage";
+import AllProducts from "../pages/allProducts/AllProducts";
 
 export const router = createBrowserRouter([
     {
@@ -31,7 +32,7 @@ export const router = createBrowserRouter([
 
             }, {
                 path: "/products",
-                element: <div>products</div>
+                element: <AllProducts />
             },
             {
                 path: "/login",

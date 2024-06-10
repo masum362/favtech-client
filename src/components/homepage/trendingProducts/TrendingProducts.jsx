@@ -37,9 +37,11 @@ const TrendingProducts = () => {
 
             <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 my-12'>
                 {
-                    products.slice(0, 6).map(product => <div className='w-full  rounded-lg px-12 py-4 hover:shadow-2xl bg-white' key={product._id}>
-                        <img src={product.imageURL} alt="" className='w-full h-60 object-cover rounded-lg' />
-                        <div className='flex items-center justify-between gap-2 w-full my-4'>
+                    products.slice(0, 6).map(product => <div className='w-full card bg-base-100 shadow-xl p-4  rounded-lg px-12 py-4 hover:shadow-2xl ' key={product._id}>
+                        <figure>
+                            <img src={product.imageURL} alt="" className='w-full h-60 object-cover rounded-lg' />
+                        </figure>
+                        <div className='flex items-center justify-between gap-2 w-full my-4 card-body'>
                             <Link to={`/product/${product._id}`}> <h1 className='font-bold text-lg md:text-3xl cursor-pointer hover:text-themePrimary'>{product.name}</h1></Link>
 
                             <button disabled={product.owner.uid === user?.uid} onClick={() => handleUpVote(product._id, user.uid)} className={`${product.upvotedUsers.includes(user?.uid) ? "bg-themePrimary" : "bg-slate-900"} px-2 py-1 md:px-4 md:py-2 flex items-center justify-center rounded-lg font-bold hover:bg-slate-800 duration-150`}>
@@ -56,7 +58,7 @@ const TrendingProducts = () => {
                 }
             </div>
             <div className='flex items-center justify-center'>
-               <Link to={"/products"}><button className=' bg-themePrimary text-white hover:text-black font-bold hover:border-themePrimary rounded-full px-8 py-4 border-2 hover:bg-transparent duration-300 text-center'>
+                <Link to={"/products"}><button className=' bg-themePrimary text-white hover:text-black font-bold hover:border-themePrimary rounded-full px-8 py-4 border-2 hover:bg-transparent duration-300 text-center'>
                     Show All Products
                 </button></Link>
             </div>

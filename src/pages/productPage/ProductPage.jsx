@@ -112,6 +112,7 @@ const ProductPage = () => {
                 text: "Your review about product added successfully!",
                 icon: "success"
             });
+            setPostReview(false);
         }
     }
 
@@ -147,10 +148,7 @@ const ProductPage = () => {
                             </div>
                             <Link to={product.external_links} target='_blank'>
                                 <button
-                                    className='btn bg-accent'
-
-                                >
-                                    Check The Product</button></Link>
+                                    className='btn bg-accent'>Check The Product</button></Link>
                         </div>
                         <div className='w-full'>
                             <div className='flex items-center justify-between'>
@@ -181,7 +179,7 @@ const ProductPage = () => {
                                             })} name="reviewDescription" id="reviewDescription" rows={5} className='w-full'></textarea>
                                             {errors.reviewDescription && <span className='text-red-500'>{errors.reviewDescription?.message}</span>}
                                         </div>
-                                        <button type='submit' className='btn btn-accent'>Post</button>
+                                        <button type='submit' className='btn bg-themePrimary text-white'>Post</button>
                                     </form>
                                 </div>
                             }
