@@ -49,4 +49,5 @@ $password: 123456Aa
 - swal
 - tanstack query
 - recharts
+- framer-motion
 - etc.

@@ -7,12 +7,23 @@ import { IoIosArrowUp } from 'react-icons/io';
 import Swal from 'sweetalert2'
 import { Rating } from 'react-simple-star-rating'
 import { useForm } from 'react-hook-form';
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+
 
 const ProductPage = () => {
     const [postReview, setPostReview] = useState(false)
     const { user } = useAuth();
     const authSecure = useAuthSecure();
     const { id } = useParams()
+    const settings = {
+        dots: true,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
 
     const { register, handleSubmit, formState: { errors }, setValue } = useForm({
         defaultValues: {
@@ -183,34 +194,47 @@ const ProductPage = () => {
                                     </form>
                                 </div>
                             }
-                            {
-                                reviews?.map(review => <div key={review._id} className='my-4'>
-                                    <div className='flex items-center gap-4 '>
-                                        <figure className='w-10 h-10'>
-                                            <img src={review.reviewerImage} alt="reviewer image" className='w-full h-full object-cover' />
-                                        </figure>
-                                        <h1 className='text-lg md:text-xl lg:text-2xl font-bold '>{review.reviewerName}</h1>
 
-                                    </div>
-                                    <p>{review.reviewDescription}</p>
-                                    <div
-                                        style={{
-                                            direction: 'ltr',
-                                            fontFamily: 'sans-serif',
-                                            touchAction: 'none'
-                                        }}
 
-                                        className='w-full'
-                                    >
-                                        <Rating
-                                            initialValue={review.rating}
-                                            size={20}
-                                            onClick={function noRefCheck() { }}
-                                            readonly
-                                        />
-                                    </div>
-                                </div>)
-                            }
+                            <Slider {...settings}>
+                                {
+                                    reviews?.map(review => {
+                                        return (
+
+                                            <> <div key={review._id} className='flex flex-col items-center justify-center py-12 rounded-lg bg-white space-y-4'>
+
+                                                <figure>
+                                                    <img src={review.reviewerImage} alt="revieweer image" className='w-24 h-24 rounded-full'/>
+                                                </figure>
+                                                <div className='flex flex-col items-center justify-center gap-4'>
+                                                    <h1 className='font-bold text-2xl'>{review.reviewerName}</h1>
+                                                    <div
+                                                        style={{
+                                                            direction: 'ltr',
+                                                            fontFamily: 'sans-serif',
+                                                            touchAction: 'none'
+                                                        }}
+
+                                                        className='w-full flex items-center justify-center'
+                                                    >
+                                                        <Rating
+                                                            initialValue={review.rating}
+                                                            size={36}
+                                                            onClick={function noRefCheck() { }}
+                                                            readonly
+                                                        />
+                                                    </div>
+                                                    <p className='text-lg font-thin max-w-lg'>{review.reviewDescription}</p>
+                                                </div>
+                                            </div>
+                                            </>
+
+                                        )
+                                    })
+                                }
+                            </Slider >
+
+
 
 
                         </div>

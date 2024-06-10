@@ -39,7 +39,7 @@ const Register = () => {
                     transition: Bounce,
                 })
                 setTimeout(() => {
-                    navigate("/login");
+                    navigate("/");
                 }, 2000);
             }).catch(err => console.log(err.message));
         })

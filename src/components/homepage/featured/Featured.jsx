@@ -39,7 +39,7 @@ const Featured = () => {
             <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-12 w-full'>
                 {
 
-                    isLoading ? <Loading /> : featuredProduct.map(product => <div className='w-full rounded-lg card hover:shadow-2xl bg-white p-4' key={product._id}>
+                    isLoading ? <Loading /> : featuredProduct?.slice(0,6).map(product => <div className='w-full rounded-lg card hover:shadow-2xl bg-white p-4 my-4' key={product._id}>
                         <figure>
                             <img src={product.imageURL} alt="" className='w-full h-60 object-cover rounded-lg' />
                         </figure>

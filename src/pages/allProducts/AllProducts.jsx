@@ -90,7 +90,7 @@ const AllProducts = () => {
 
                 <div className='grid grid-cols-1 lg:grid-cols-3 gap-4'>
                     {
-                        products.map(product => <div key={product._id} className="card bg-base-100 shadow-xl p-4">
+                        products.map(product => <div key={product._id} className="card bg-base-100 shadow-xl p-4 my-4">
                             <figure><img src={product.imageURL} alt={product.name} className='w-full h-52 object-cover' /></figure>
                             <div className="card-body">
                                 <div className='flex items-center justify-between gap-2 w-full my-4'>

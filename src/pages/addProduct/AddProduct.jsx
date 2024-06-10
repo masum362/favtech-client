@@ -6,10 +6,12 @@ import { TiDelete } from "react-icons/ti";
 import useAuthSecure from '../../hooks/useAuthSecure';
 import Swal from 'sweetalert2'
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 
 const AddProduct = () => {
 
+  const {user}  = useAuth();
   const [image, setImage] = useState("")
   const { handleSubmit, register, setValue, formState: { errors } } = useForm();
   const [loading, setLoading] = useState(false)
@@ -104,13 +106,13 @@ const AddProduct = () => {
         });
         navigate("/user/my-products")
       }
-      else if(response.status === 204) {
+      else if (response.status === 204) {
         Swal.fire({
           title: "You are not eligible to do this.",
-          text:"you are not a subscribed member that's why you are not eligible to add more products then 1.if you want to add unlimited products then please subscribe by paying your subscription fees",
+          text: "you are not a subscribed member that's why you are not eligible to add more products then 1.if you want to add unlimited products then please subscribe by paying your subscription fees",
           icon: "warning"
         });
-      } 
+      }
       console.log(response.data);
     } catch (error) {
       console.log(error.message);
@@ -162,6 +164,24 @@ const AddProduct = () => {
                 errors?.description && <span className='text-red-500'>{errors.description?.message}</span>
               }
             </div>
+
+            <div className='flex flex-col w-full'>
+              <h1 className='text-lg font-bold capitalize'>owner</h1>
+              <div className='w-full flex items-center'>
+                <label htmlFor="name">name:</label>
+                <input type="text" name="name" id="name" value={user?.displayName} disabled  className='w-full input'/>
+              </div>
+              <div className='w-full flex items-center'>
+                <label htmlFor="email">Email:</label>
+                <input type="text" name="email" id="email" value={user?.email} disabled  className='w-full input'/>
+              </div>
+              <div className='w-full flex items-center'>
+                <label htmlFor="photoURL">Image:</label>
+                <input type="text" name="photoURL" id="photoURL" value={user?.photoURL} disabled  className='w-full input'/>
+              </div>
+            </div>
+
+
             <div className='flex flex-col w-full '>
               <label htmlFor="external-links">External Links:</label>
               <input type="text" name="external-links" id="external-links" placeholder="Type here" className="input input-bordered w-full "  {...register("external_links", {
