@@ -14,7 +14,7 @@ $password: 123456Aa
 ## Moderator User Info
 
 ```javascript
-$Email: moderator@admin.com
+$Email: moderator@moderator.com
 $password: 123456Aa
 ```
 
