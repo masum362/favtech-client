@@ -13,6 +13,7 @@ import 'swiper/css/navigation';
 
 // import required modules
 import { Pagination, Autoplay } from 'swiper/modules';
+import { Link } from 'react-router-dom';
 
 
 const Carousel = () => {
@@ -34,39 +35,15 @@ const Carousel = () => {
     ]
     return (
         <div className="w-full">
-            <Swiper
-                pagination={{
-                    clickable: true,
-                }}
-
-                autoplay={{
-                    delay: 2000,
-                    disableOnInteraction: false,
-                }}
-                modules={[Pagination, Autoplay]}
-                style={
-                    {
-                        '--swiper-pagination-color': '#FF6154',
-                    }
-                }
-                className="mySwiper">
-                {
-                    carouselItems.map(item => {
-                        return <SwiperSlide>
-                            <div className="hero min-h-screen" style={{ backgroundImage: `url(${item.image})` }}>
-                                <div className="hero-overlay bg-opacity-60"></div>
-                                <div className="hero-content text-center text-neutral-content">
-                                    <div className="max-w-md">
-                                        <h1 className="mb-5 text-5xl font-bold">{item.title}</h1>
-                                        <p className="mb-5">{item.description}</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </SwiperSlide>
-                    })
-                }
-
-            </Swiper>
+            <div className="hero min-h-screen" style={{ backgroundImage: `url(${banner1})` }}>
+                <div className="hero-overlay bg-opacity-60"></div>
+                <div className="hero-content text-center text-neutral-content">
+                    <div className="max-w-2xl">
+                        <h1 className="mb-5 text-5xl font-bold">Discover the Next Big Thing in Tech and Innovation</h1>
+                        <p className="mb-5">Join our vibrant community of innovators and early adopters. Explore, upvote, and support the latest products and groundbreaking ideas shaping the future. Your next favorite discovery is just a click away!</p>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

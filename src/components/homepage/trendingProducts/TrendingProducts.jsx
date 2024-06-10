@@ -35,24 +35,26 @@ const TrendingProducts = () => {
         <div className=' lg:px-12 p-2'>
             <h1 className='text-2xl md:text-4xl lg:text-5xl font-bold text-center'>Trending Products</h1>
 
-            <div className='grid grid-cols-1 sm:grid-cols-2 gap-8 my-12'>
+            <div className='grid grid-cols-1  sm:grid-cols-2 md:grid-cols-3 gap-8 my-12'>
                 {
-                    products.slice(0, 6).map(product => <div className='w-full card bg-base-100 shadow-xl p-4  rounded-lg px-12 py-4 hover:shadow-2xl ' key={product._id}>
+                    products.slice(0, 6).map(product => <div className='w-full card bg-base-100 shadow-xl  rounded-lg p-4 hover:shadow-2xl ' key={product._id}>
                         <figure>
                             <img src={product.imageURL} alt="" className='w-full h-60 object-cover rounded-lg' />
                         </figure>
-                        <div className='flex items-center justify-between gap-2 w-full my-4 card-body'>
-                            <Link to={`/product/${product._id}`}> <h1 className='font-bold text-lg md:text-3xl cursor-pointer hover:text-themePrimary'>{product.name}</h1></Link>
+                        <div className='card-body'>
+                            <div className='flex items-center justify-between gap-2 w-full my-4 '>
+                                <Link to={`/product/${product._id}`}> <h1 className='font-bold text-lg md:text-3xl cursor-pointer hover:text-themePrimary'>{product.name}</h1></Link>
 
-                            <button disabled={product.owner.uid === user?.uid} onClick={() => handleUpVote(product._id, user.uid)} className={`${product.upvotedUsers.includes(user?.uid) ? "bg-themePrimary" : "bg-slate-900"} px-2 py-1 md:px-4 md:py-2 flex items-center justify-center rounded-lg font-bold hover:bg-slate-800 duration-150`}>
-                                <span className='text-white '>{product.upvote}</span>
-                                <span className='text-white'><IoIosArrowUp size={26} /></span>
-                            </button>
-                        </div>
-                        <div className='grid grid-cols-3 gap-4 my-4'>
-                            {
-                                product.tags.map(tag => <span className='bg-transparent border border-themePrimary font-bold p-2 rounded-xl text-center hover:bg-themePrimary duration-300 hover:text-white ' key={tag}>{tag}</span>)
-                            }
+                                <button disabled={product.owner.uid === user?.uid} onClick={() => handleUpVote(product._id, user.uid)} className={`${product.upvotedUsers.includes(user?.uid) ? "bg-themePrimary" : "bg-slate-900"} px-2 py-1 md:px-4 md:py-2 flex items-center justify-center rounded-lg font-bold hover:bg-slate-800 duration-150`}>
+                                    <span className='text-white '>{product.upvote}</span>
+                                    <span className='text-white'><IoIosArrowUp size={26} /></span>
+                                </button>
+                            </div>
+                            <div className='grid grid-cols-2 gap-4 my-4'>
+                                {
+                                    product.tags.map(tag => <span className='bg-transparent border border-themePrimary font-bold p-2 rounded-xl text-center hover:bg-themePrimary duration-300 hover:text-white ' key={tag}>{tag}</span>)
+                                }
+                            </div>
                         </div>
                     </div>)
                 }

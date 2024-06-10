@@ -20,6 +20,7 @@ import Coupons from '../pages/coupons/Coupons';
 import ProductPage from "../pages/productPage/ProductPage";
 import AllProducts from "../pages/allProducts/AllProducts";
 import UpdateProduct from "../pages/updateProduct/UpdateProduct";
+import AddCoupon from "../pages/coupons/AddCoupon";
 
 const token = localStorage.getItem('access-token')
 
@@ -107,6 +108,10 @@ export const router = createBrowserRouter([
             {
                 path: "/admin/manage-coupons",
                 element: <SideBar><Coupons></Coupons></SideBar>
+            },
+            {
+                path: "/admin/add/coupon",
+                element: <SideBar><AddCoupon></AddCoupon></SideBar>
             },
         ]
     },

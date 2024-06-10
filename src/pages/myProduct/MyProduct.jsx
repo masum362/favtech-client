@@ -18,8 +18,7 @@ const MyProduct = () => {
     }
   })
 
-
-  const handleDelete = async (productId) => {
+const handleDelete = async (productId) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -45,6 +44,7 @@ const MyProduct = () => {
 
 
   }
+  
 
 
   return (

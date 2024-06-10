@@ -22,7 +22,7 @@ const AllProducts = () => {
     const authSecure = useAuthSecure();
 
     const { data: products = [], refetch, isError } = useQuery({
-        queryKey: ["all-products"],
+        queryKey: ["all-products",skip,search,limit],
         queryFn: async () => {
             const response = await authPublic(`/all-products?search=${search}&skip=${skip}&limit=${limit}`);
             return response.data;
@@ -32,7 +32,7 @@ const AllProducts = () => {
 
 
     useEffect(() => {
-        refetch();
+        // refetch();
     }, [skip, limit, search])
 
 
@@ -76,6 +76,9 @@ const AllProducts = () => {
             }
         }
     }
+
+
+
 
     return (
         <div>
