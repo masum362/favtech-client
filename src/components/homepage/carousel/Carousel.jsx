@@ -4,15 +4,6 @@ import banner3 from '../../../assets/banner3.jpg'
 
 import React, { useRef, useState } from 'react';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from 'swiper/react';
-
-// Import Swiper styles
-import 'swiper/css';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-
-// import required modules
-import { Pagination, Autoplay } from 'swiper/modules';
 import { Link } from 'react-router-dom';
 
 

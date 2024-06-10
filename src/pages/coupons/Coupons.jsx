@@ -3,18 +3,14 @@ import useAuthSecure from '../../hooks/useAuthSecure';
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
 import CustomBtn from '../../components/customBtn/CustomBtn';
+import Swal from 'sweetalert2';
+import useCoupons from '../../hooks/useCoupons';
 
 const Coupons = () => {
   const authSecure = useAuthSecure();
 
-  const { data: coupons = [], refetch, isError } = useQuery({
-    queryKey: ["coupons"],
-    queryFn: async () => {
-      const response = await authSecure(`/coupons`);
-      return response.data;
+  const { coupons } = useCoupons();
 
-    }
-  })
 
   const handleDelete = async (productId) => {
     Swal.fire({
@@ -27,11 +23,11 @@ const Coupons = () => {
       confirmButtonText: "Yes, delete it!"
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const response = await authSecure.delete(`/delete-user-product/${productId}`);
+        const response = await authSecure.delete(`/delete/coupon/${productId}`);
         if (response.status === 200) {
           Swal.fire({
             title: "Deleted!",
-            text: "Your file has been deleted.",
+            text: "Your coupon has been deleted.",
             icon: "success"
           });
           refetch()
@@ -39,8 +35,9 @@ const Coupons = () => {
 
       }
     });
-  }
 
+
+  }
 
   return (
     <div>

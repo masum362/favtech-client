@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import CustomBtn from '../../components/customBtn/CustomBtn';
 import { useNavigate } from 'react-router-dom';
 import useAuthSecure from '../../hooks/useAuthSecure';
 import Swal from 'sweetalert2';
+import DatePicker from 'react-datepicker';
+import 'react-datepicker/dist/react-datepicker.css';
+
 
 const AddCoupon = () => {
-    const { handleSubmit, register, setValue, formState: { errors } } = useForm();
+    const { control, handleSubmit, register, formState: { errors } } = useForm();
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const authSecure = useAuthSecure();
@@ -14,6 +17,7 @@ const AddCoupon = () => {
 
 
     const handleFormSubmit = async (data) => {
+        setLoading(true);
         console.log(data);
         const response = await authSecure.post("/add/coupon", { coupon: data })
         try {
@@ -35,6 +39,7 @@ const AddCoupon = () => {
         } catch (error) {
             console.log(error.message);
         }
+        setLoading(false);
     }
 
     return (
@@ -56,14 +61,24 @@ const AddCoupon = () => {
                             }
                         </div>
 
-                        <div className='flex flex-col w-full '>
-                            <label htmlFor="expiry_date">Expiry Date:</label>
-                            <input type="date" name="expiry_date" id="expiry_date" placeholder="Type here" className="input input-bordered w-full "  {...register("expiry_date", {
-                                required: 'expiry date must be required.'
-                            })} />
-                            {
-                                errors?.expiry_date && <span className='text-red-500'>{errors.expiry_date?.message}</span>
-                            }
+                        <div className='flex flex-col'>
+                            <label htmlFor="expiry_date">Expiry date</label>
+                            <Controller
+                                name="expiry_date"
+                                control={control}
+                                rules={{ required: true }}
+                                render={({ field }) => (
+                                    <DatePicker
+                                        id="expiry_date"
+                                        selected={field.value}
+                                        onChange={(date) => field.onChange(date)}
+                                        dateFormat="dd-MM-yyyy"
+                                        placeholderText="Select a date"
+                                        className="input input-bordered w-full "
+                                    />
+                                )}
+                            />
+                            {errors.expiry_date && <p>Date is required</p>}
                         </div>
                         <div className='flex flex-col w-full '>
                             <label htmlFor="description">Description:</label>

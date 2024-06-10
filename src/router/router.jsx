@@ -21,6 +21,7 @@ import ProductPage from "../pages/productPage/ProductPage";
 import AllProducts from "../pages/allProducts/AllProducts";
 import UpdateProduct from "../pages/updateProduct/UpdateProduct";
 import AddCoupon from "../pages/coupons/AddCoupon";
+import UpdateCoupon from "../pages/coupons/UpdateCoupon";
 
 const token = localStorage.getItem('access-token')
 
@@ -112,6 +113,10 @@ export const router = createBrowserRouter([
             {
                 path: "/admin/add/coupon",
                 element: <SideBar><AddCoupon></AddCoupon></SideBar>
+            },
+            {
+                path: "/admin/update/coupon/:id",
+                element: <SideBar><UpdateCoupon></UpdateCoupon></SideBar>
             },
         ]
     },
