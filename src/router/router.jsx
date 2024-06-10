@@ -19,6 +19,9 @@ import Users from '../pages/users/Users';
 import Coupons from '../pages/coupons/Coupons';
 import ProductPage from "../pages/productPage/ProductPage";
 import AllProducts from "../pages/allProducts/AllProducts";
+import UpdateProduct from "../pages/updateProduct/UpdateProduct";
+
+const token = localStorage.getItem('access-token')
 
 export const router = createBrowserRouter([
     {
@@ -59,6 +62,16 @@ export const router = createBrowserRouter([
             {
                 path: "/user/add-product",
                 element: <SideBar><AddProduct /></SideBar>
+            },
+            {
+                path: "/user/update/:id",
+                loader: ({ params }) => fetch(`${import.meta.env.VITE_BACKEND_URL}/product/${params.id}`, {
+                    method: "GET",
+                    headers: {
+                        authorization: `Bearer ${token}`,
+                    }
+                }),
+                element: <SideBar><UpdateProduct /></SideBar>
             },
             {
                 path: "/user/my-products",
