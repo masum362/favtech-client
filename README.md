@@ -1,5 +1,8 @@
 # <h1 style="text-align:center ; padding:5px 10px">FavTech</h1>
-Providing reliable tech products since 1992
+
+<h3>Providing reliable tech products since 1992</h3>
+
+<p>FavTech is a tech product listener website.people can list there product in our website. user can visit in product original page from our website and if user likes the product they can purchase product.it is a free marketing website for product owner and also a free resourse for user.they don't need to waste time by finding product.they just come our website and search with their keyword ,the product will be front of them</p>
 
 <hr>
 
@@ -11,11 +14,19 @@ Providing reliable tech products since 1992
 $Email: admin@admin.com
 $password: 123456Aa
 ```
+
 ## Moderator User Info
 
 ```javascript
 $Email: moderator@moderator.com
 $password: 123456Aa
+```
+
+## Project Setup Tips
+
+```javascript
+npm i
+npm run dev
 ```
 
 ### Features
